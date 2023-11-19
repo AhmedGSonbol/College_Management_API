@@ -1,5 +1,6 @@
 from flask import Blueprint , jsonify ,request
 from DB_Connections.DB_connections import LinkDatabase
+from flask_cors import cross_origin
 # from constants import myMethods
 
 
@@ -7,6 +8,7 @@ log_reg_blp = Blueprint("log_reg_blp",__name__,static_folder="static",template_f
 
 db = LinkDatabase()
 
+@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 @log_reg_blp.route("/login",methods=['POST'])
 def login():
      
@@ -17,6 +19,9 @@ def login():
 
 
 
+
+
+@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 @log_reg_blp.route("/register",methods=['POST'])
 def register():
      

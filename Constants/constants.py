@@ -21,22 +21,22 @@ class myMethods :
         @wraps(f)
         def decorated(*args,**kwargs):
 
-            token = None
+            Hdata = None
 
             if 'x-access-token' in request.headers:
 
-                token = request.headers['x-access-token']
+                Hdata = request.headers['x-access-token']
         
 
-            if not token:
+            if not Hdata:
                 return jsonify({"message":'Token Is Missing!'})
 
             try:
-                data = jwt.decode(token,"654321",algorithms=["HS256"])
+                token = jwt.decode(Hdata,"654321",algorithms=["HS256"])
             except:
             
                 return jsonify({"Message":'Token Is Invalid'})
         
-            return f(*args,**kwargs)
+            return f(token,*args,**kwargs)
         
         return decorated
