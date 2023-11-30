@@ -8,7 +8,7 @@ log_reg_blp = Blueprint("log_reg_blp",__name__,static_folder="static",template_f
 
 db = LinkDatabase()
 
-@cross_origin(origin='*',headers=['Content-Type','Authorization'])
+@cross_origin(origin='*',headers=['Content-Type','x-access-token'])
 @log_reg_blp.route("/login",methods=['POST'])
 def login():
      
@@ -21,14 +21,14 @@ def login():
 
 
 
-@cross_origin(origin='*',headers=['Content-Type','Authorization'])
+@cross_origin(origin='*',headers=['Content-Type','x-access-token'])
 @log_reg_blp.route("/register",methods=['POST'])
 def register():
      
      request_data = request.get_json()
      if request_data is None or "name" not in  request_data or "email" not in  request_data or "nat_ID" not in  request_data or "password" not in  request_data or "user_type" not in  request_data:
           return jsonify({'Message':'Input data are missing !'}) 
-     if  request_data['user_type'] == "2":
+     if  request_data['user_type'] == "student":
           if 'semester' not in  request_data:
                return jsonify({'Message':'semester is missing !'}) 
           request_data['confirmed'] = "0"

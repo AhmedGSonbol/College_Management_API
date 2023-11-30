@@ -29,13 +29,14 @@ class myMethods :
         
 
             if not Hdata:
-                return jsonify({"message":'Token Is Missing!'})
+                return jsonify({"message":'Token Is Missing!'}),400
 
             try:
                 token = jwt.decode(Hdata,"654321",algorithms=["HS256"])
+                
             except:
             
-                return jsonify({"Message":'Token Is Invalid'})
+                return jsonify({"Message":'Token Is Invalid'}),400
         
             return f(token,*args,**kwargs)
         
